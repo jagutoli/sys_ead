@@ -13,48 +13,47 @@
         echo "<script>window.location = 'login.php'</script>";
     }
 ?>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>Dashboard - <?php echo $nome; ?></title>
-    </head>
-    <body>
-        <div id="content">
+
+    <?php require_once ('cabecalho.php'); ?>
+    
+    <!-- menu lateral com oções para cada nivel de acesso -->
+    <section class="principal">
+        <div class="w3-sidebar w3-bar-block w3-gray" style="width:200px">
+            <a href="index.php"class="w3-bar-item w3-button"> <i class="fa fa-home"></i> HOME</a>
+            <?php if($nivel==0): ?>
+                <a href="perfil.php" class="w3-bar-item w3-button"><i class="fa fa-graduation-cap"></i> PERFIL DO ALUNO</a>
+            <?php endif; ?>
+            <?php if($nivel==1): ?>
+                <a href="perfil.php" class="w3-bar-item w3-button"><i class="fa fa-address-card"></i> PERFIL DO PROFESSOR</a>
+            <?php endif; ?>
+            <?php if($nivel==2): ?>
+			    <a href="perfil.php" class="w3-bar-item w3-button"><i class="fa fa-gear"></i> PERFIL DO ADM</a>
+            <?php endif; ?>
+                <a href="" class="w3-bar-item w3-button"><i class="fa fa-comment"></i> COMENTÁRIOS</a>
+                <a href="acoes/logout.php" class="w3-bar-item w3-button"><i class="	fa fa-arrow-left"></i> SAIR</a>
+        				
+                  
+    </section>
+
+    </div>
+        </div>  
+        <div class= "w3-container w3-center">
+
+         <h2> Aqui ficará o conteúdo conforme o perfil </h2>
+            <hr>
+          <!--<button class="w3-button w3-red w3-large w3-opacity">LOGIN</button> -->
+          <div id="content">
             <div id="user">
                 <!-- comprimenta o usuario dizendo seu nivel de acesso -->
                 <span><?php if($nivel==2)
-                    echo ($nivel==2) ? $nome." (ADM)" : $nome;
+                    echo ($nivel==2) ? " (Olá ADM)"  : $nome;
                 elseif($nivel==1) 
-                    echo ($nivel==1) ? $nome." (Prof)" : $nome;
+                    echo ($nivel==1) ? " (Olá Prof)" : $nome;
                 else    
-                    echo ($nivel==0) ? $nome." (aluno)" : $nome;  ?></span>
+                    echo ($nivel==0) ? " (Olá aluno)" : $nome;  ?></span>
 
             </div>
-            <span class="logo">Sistema EAD turma 10</span>
-            <div id="logout">
-                <a href="acoes/logout.php"><button>Sair</button></a>
-            </div>
-            <!-- menu lateral com oções para cada nivel de acesso -->
-            <div class="menu-lateral">
-			    <ul>
-                    <li><a href="index.php">HOME</a></li>
-                    <li><a href="">MEUS CURSOS</a></li>
-					<?php if($nivel==0): ?>
-						<li><a href="perfil.php">PERFIL DO ALUNO</a></li>
-            		<?php endif; ?>
-					<?php if($nivel==1): ?>
-						<li><a href="perfil.php">PERFIL DO PROFESSOR</a></li>
-                    <?php endif; ?>
-                    <?php if($nivel==2): ?>
-						<li><a href="perfil.php">PERFIL DO ADM</a></li>
-            		<?php endif; ?>
-					<li><a href="">COMENTÁRIOS</a></li>
-					<li><a href="acoes/logout.php">SAIR</a></li>
-			    </ul>
-			</div>
-
-
-
+   
            <!-- < ?php
                     /*("SELECT u.*,pu.* FROM usuarios as u INNER JOIN perfil_user as pu ON p.id = pu.id_user WHERE u.email = ? AND u.senha = ?");*/
                         $query = $conexao->prepare(("SELECT u.*,pu.* FROM usuarios as u INNER JOIN perfil_user as pu ON u.id = pu.id_user"));
@@ -70,10 +69,13 @@
                    < ?php echo $teste["nome"], $usuarioAtual["senha"], $teste["profissao"];?>-->
                    
 
+    <!-- Verificar com Andre o que o codigo abaixo fa-->
 
-
+    <div>   
         <?php if($nivel==2): ?>
-            <table width="40%">
+
+        
+            <table width="80%">
                 <thead>
                     <tr style="font-weight: bold">
                         <td>Email</td>
@@ -105,8 +107,7 @@
                     <?php endfor; ?>
                     <?php echo $teste["nome"], $usuarioAtual["senha"], $teste["cpf"];?>
                 </tbody>            
-            </table>
-        <?php endif; ?>
-
-    </body>
-</html>
+                </table>
+                    <?php endif; ?>
+            </div>
+    <?php require_once ('rodape.php');?>
